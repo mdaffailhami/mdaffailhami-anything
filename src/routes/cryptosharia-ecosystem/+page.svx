@@ -1,4 +1,4 @@
-<div class="prose prose-orange max-w-4xl mx-auto fl-px-3/6 py-12 [&_img]:w-full">
+<div class="prose prose-primary text-foreground! max-w-4xl mx-auto fl-px-3/6 py-12 [&_img]:w-full">
 
 # Ekosistem CryptoSharia
 

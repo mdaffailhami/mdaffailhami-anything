@@ -38,6 +38,11 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"fluid-tailwindcss": "^1.0.5"
+		"@lucide/svelte": "^0.563.1",
+		"bits-ui": "^2.15.5",
+		"clsx": "^2.1.1",
+		"fluid-tailwindcss": "^1.0.5",
+		"svelte-themes": "^2.0.10",
+		"tailwind-merge": "^3.4.0"
 	}
 }
