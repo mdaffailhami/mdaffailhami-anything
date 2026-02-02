@@ -1,6 +1,8 @@
-# Gambaran Ekosistem CryptoSharia
+<div class="prose prose-orange max-w-4xl mx-auto fl-px-3/6 py-12 [&_img]:w-full">
 
-Dokumen ini menjelaskan secara sederhana bagaimana ekosistem CryptoSharia dirancang dan bagaimana setiap bagian saling terhubung. Penjelasan ini **tidak ditujukan untuk teknis pemrograman**, melainkan untuk memahami **logika organisasi, alur pengguna, dan cara kerja perusahaan secara umum**.
+# Ekosistem CryptoSharia
+
+Artikel ini menjelaskan secara sederhana bagaimana ekosistem CryptoSharia dirancang dan bagaimana setiap bagian saling terhubung. Penjelasan ini **tidak ditujukan untuk teknis pemrograman**, melainkan untuk memahami **logika organisasi, alur pengguna, dan cara kerja perusahaan secara umum**.
 
 ---
 
@@ -48,7 +50,7 @@ Artinya:
 
 Dengan sistem akun terpusat ini:
 
-- _user experience_ menjadi lebih rapi,
+- *user experience* menjadi lebih rapi,
 - tidak ada akun ganda,
 - dan CryptoSharia tampil sebagai satu entitas yang utuh, bukan kumpulan platform terpisah yang saling berdiri sendiri.
 
@@ -86,7 +88,7 @@ Community memiliki dua bentuk:
 - versi gratis,
 - versi berbayar dengan akses dan fasilitas yang lebih dalam.
 
-Platform seperti WhatsApp atau Discord hanya berperan sebagai **alat komunikasi**, bukan inti dari produk _CryptoSharia Community_ itu sendiri.
+Platform seperti WhatsApp atau Discord hanya berperan sebagai **alat komunikasi**, bukan inti dari produk *CryptoSharia Community* itu sendiri.
 
 ---
 
@@ -120,10 +122,10 @@ Semua hal yang berkaitan dengan:
 
 dikonsolidasikan dalam satu platform yang terpusat.
 
-Jadi _CryptoSharia Store_ berperan sebagai **pusat transaksi dan pengelolaan akses** untuk seluruh ekosistem CryptoSharia, seperti:
+Jadi *CryptoSharia Store* berperan sebagai **pusat transaksi dan pengelolaan akses** untuk seluruh ekosistem CryptoSharia, seperti:
 
-- berlangganan _CryptoSharia Community_ (versi berbayar),
-- berlangganan dan pembelian modul _CryptoSharia Academy_,
+- berlangganan *CryptoSharia Community* (versi berbayar),
+- berlangganan dan pembelian modul *CryptoSharia Academy*,
 - pembelian e-book, merchandise, dan produk lainnya.
 
 ---
@@ -138,18 +140,18 @@ Perannya adalah:
 
 - menyimpan dan mengelola seluruh data ekosistem CryptoSharia secara terpusat (database),
 - memastikan aturan dan akses sama di semua platform,
-- menjadi penghubung antara _Accounts_, _Media_, _Community_, _Academy_, _Store_, _Admin_, _Profile_, dll.
+- menjadi penghubung antara *Accounts*, *Media*, *Community*, *Academy*, *Store*, *Admin*, *Profile*, dll.
 
-Dengan adanya _API_:
+Dengan adanya *API*:
 
 - setiap platform tidak berjalan sendiri-sendiri,
 - keputusan dan aturan bersifat konsisten,
 - dan perubahan di satu sisi dapat langsung berdampak secara terkontrol ke seluruh ekosistem.
 
-Bagi user, _CryptoSharia API_ tidak terlihat, namun dampaknya terasa dalam bentuk:
+Bagi user, *CryptoSharia API* tidak terlihat, namun dampaknya terasa dalam bentuk:
 
 - akses yang konsisten,
-- _user experience_ yang rapi,
+- *user experience* yang rapi,
 - serta sistem yang terasa profesional.
 
 ---
@@ -158,14 +160,14 @@ Bagi user, _CryptoSharia API_ tidak terlihat, namun dampaknya terasa dalam bentu
 
 CryptoSharia Admin adalah **dashboard internal**, yang hanya digunakan oleh tim internal CryptoSharia.
 
-Melalui _CryptoSharia Admin_, tim dapat:
+Melalui *CryptoSharia Admin*, tim dapat:
 
 - mengelola konten,
 - mengatur produk dan layanan,
 - mengelola akses pengguna,
 - serta memastikan operasional berjalan sesuai arah yang ditetapkan.
 
-_CryptoSharia Admin_ berfungsi sebagai **pusat kontrol ekosistem**, sehingga:
+*CryptoSharia Admin* berfungsi sebagai **pusat kontrol ekosistem**, sehingga:
 
 - pengelolaan ekosistem terpusat di satu platform,
 - tanggung jawab lebih jelas,
@@ -198,3 +200,5 @@ Ekosistem CryptoSharia dirancang untuk:
 - serta memungkinkan transformasi dari komunitas biasa menuju start-up yang profesional.
 
 Struktur ini bukan untuk terlihat “canggih”, melainkan untuk memastikan bahwa CryptoSharia dapat tumbuh secara rapi, bertanggung jawab, serta berkelanjutan sebagai sebuah perusahaan profesional untuk jangka panjang.
+
+</div>
