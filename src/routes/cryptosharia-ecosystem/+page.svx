@@ -42,6 +42,7 @@ Artinya:
 
 - user cukup **membuat satu akun saja**,
 - lalu akun tersebut dapat digunakan untuk mengakses seluruh ekosistem CryptoSharia, yaitu:
+  - CryptoSharia Profile
   - CryptoSharia Media
   - CryptoSharia Community
   - CryptoSharia Academy
@@ -58,9 +59,31 @@ Dengan sistem akun terpusat ini:
 
 ## 4. Platform yang Digunakan oleh Pengguna
 
-### 4.1 CryptoSharia Media
+### 4.1 CryptoSharia Profile (Company Profile)
 
-CryptoSharia Media adalah **wajah publik** CryptoSharia.
+CryptoSharia Profile adalah **halaman resmi perusahaan** yang merepresentasikan identitas, nilai, dan eksistensi CryptoSharia sebagai sebuah perusahaan profesional.
+
+Fungsinya meliputi:
+
+- informasi *About Us* (tentang perusahaan),
+- visi & misi,
+- prinsip (core values) yang dipegang perusahaan,
+- daftar kontributor yang terlibat,
+- informasi kontak dan media sosial,
+- artikel terkait aktivitas, milestone, dan kegiatan resmi CryptoSharia,
+- daftar produk/layanan (ekosistem) CryptoSharia secara menyeluruh.
+
+CryptoSharia Profile **bukan media edukasi harian** dan **bukan platform interaksi**, melainkan berperan sebagai:
+
+- sumber informasi resmi perusahaan,
+- titik rujukan publik dan institusi eksternal,
+- wajah korporat CryptoSharia di hadapan mitra, investor, dan masyarakat luas.
+
+---
+
+### 4.2 CryptoSharia Media
+
+CryptoSharia Media adalah **wajah publik edukatif** CryptoSharia.
 
 Fungsinya:
 
@@ -73,7 +96,7 @@ Media tidak berfokus pada penjualan, melainkan pada **membangun kepercayaan, lit
 
 ---
 
-### 4.2 CryptoSharia Community
+### 4.3 CryptoSharia Community
 
 CryptoSharia Community adalah **ruang interaksi dan diskusi** antar anggota.
 
@@ -92,7 +115,7 @@ Platform seperti WhatsApp atau Discord hanya berperan sebagai **alat komunikasi*
 
 ---
 
-### 4.3 CryptoSharia Academy
+### 4.4 CryptoSharia Academy
 
 CryptoSharia Academy adalah **platform pembelajaran terstruktur**.
 
@@ -105,12 +128,12 @@ Fungsinya:
 CryptoSharia Academy ditujukan bagi user yang ingin:
 
 - belajar secara serius,
-- memahami teknologi dan ekosistem Web3, BlockChain, & crypto secara menyeluruh,
-- serta tidak hanya mengikuti tren/hype jangka pendek.
+- memahami teknologi dan ekosistem Web3, Blockchain, dan crypto secara menyeluruh,
+- serta tidak hanya mengikuti tren atau hype jangka pendek.
 
 ---
 
-### 4.4 CryptoSharia Store
+### 4.5 CryptoSharia Store
 
 CryptoSharia Store adalah **pusat transaksi dan pengelolaan akses**.
 
@@ -122,11 +145,11 @@ Semua hal yang berkaitan dengan:
 
 dikonsolidasikan dalam satu platform yang terpusat.
 
-Jadi *CryptoSharia Store* berperan sebagai **pusat transaksi dan pengelolaan akses** untuk seluruh ekosistem CryptoSharia, seperti:
+CryptoSharia Store berperan sebagai **pusat transaksi dan pengelolaan akses** untuk seluruh ekosistem CryptoSharia, seperti:
 
 - berlangganan *CryptoSharia Community* (versi berbayar),
-- berlangganan dan pembelian modul *CryptoSharia Academy*,
-- pembelian e-book, merchandise, dan produk lainnya.
+- pembelian dan langganan modul *CryptoSharia Academy*,
+- pembelian e-book, merchandise, dan produk resmi lainnya.
 
 ---
 
@@ -138,9 +161,9 @@ API **bukan produk**, **bukan website publik**, dan **tidak diakses langsung ole
 
 Perannya adalah:
 
-- menyimpan dan mengelola seluruh data ekosistem CryptoSharia secara terpusat (database),
+- menyimpan dan mengelola seluruh data ekosistem CryptoSharia secara terpusat,
 - memastikan aturan dan akses sama di semua platform,
-- menjadi penghubung antara *Accounts*, *Media*, *Community*, *Academy*, *Store*, *Admin*, *Profile*, dll.
+- menjadi penghubung antara *Accounts*, *Profile*, *Media*, *Community*, *Academy*, *Store*, dan *Admin*.
 
 Dengan adanya *API*:
 
@@ -186,7 +209,7 @@ Dengan desain ekosistem seperti ini:
 Pendekatan ini membedakan:
 
 - **perusahaan yang dibangun secara serius dan profesional**,  
-  dari
+  dari  
 - **komunitas yang berjalan seadanya dan reaktif**.
 
 ---
@@ -199,6 +222,6 @@ Ekosistem CryptoSharia dirancang untuk:
 - menjaga kepercayaan publik,
 - serta memungkinkan transformasi dari komunitas biasa menuju start-up yang profesional.
 
-Struktur ini bukan untuk terlihat “canggih”, melainkan untuk memastikan bahwa CryptoSharia dapat tumbuh secara rapi, bertanggung jawab, serta berkelanjutan sebagai sebuah perusahaan profesional untuk jangka panjang.
+Struktur ini bukan untuk terlihat “canggih”, melainkan untuk memastikan bahwa CryptoSharia dapat tumbuh secara rapi, bertanggung jawab, serta berkelanjutan sebagai sebuah perusahaan profesional dalam jangka panjang.
 
 </div>
