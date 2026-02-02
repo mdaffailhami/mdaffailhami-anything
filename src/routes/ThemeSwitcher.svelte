@@ -24,8 +24,7 @@
 	size="icon-md-lg"
 	aria-label="Switch theme"
 	onclick={handleClick}
-	rounded
-	class="fixed bottom-3 left-3 z-50 duration-500"
+	class="fixed bottom-3 right-3 z-50 duration-500"
 >
 	{#snippet prefixIcon({ class: iconClass }: { class: string })}
 		{#if theme.theme === 'dark'}
