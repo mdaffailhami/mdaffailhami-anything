@@ -42,7 +42,6 @@ Artinya:
 
 - user cukup **membuat satu akun saja**,
 - lalu akun tersebut dapat digunakan untuk mengakses seluruh ekosistem CryptoSharia, yaitu:
-  - CryptoSharia Profile
   - CryptoSharia Media
   - CryptoSharia Community
   - CryptoSharia Academy
