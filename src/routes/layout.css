@@ -5,7 +5,6 @@
 @plugin '@tailwindcss/typography';
 @plugin 'fluid-tailwindcss';
 
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -49,7 +48,7 @@
 	--color-line: var(--color-gray-700);
 	--color-shade: rgba(255, 255, 255, 0.05);
 
-  --color-primary-50: var(--color-cyan-50);
+	--color-primary-50: var(--color-cyan-50);
 	--color-primary-100: var(--color-cyan-100);
 	--color-primary-200: var(--color-cyan-200);
 	--color-primary-300: var(--color-cyan-300);
@@ -68,7 +67,7 @@
 		@apply scroll-smooth font-sans text-foreground;
 
 		/* scroll-pt to solves page section being hidden by navbar on scroll */
-		@apply fl-scroll-pt-6/0;
+		/* @apply fl-scroll-pt-6/0; */
 
 		/* Prevent scrollbar from causing layout shift by reserving the space for it */
 		scrollbar-gutter: stable;
@@ -90,6 +89,10 @@
 	::selection {
 		@apply bg-primary text-on-primary;
 	}
+
+	article {
+		@apply mx-auto prose max-w-4xl py-12 fl-px-3/6 prose-primary [&_img]:w-full;
+	}
 }
 
 @utility gradient-background {
@@ -100,69 +103,37 @@
 	@apply bg-surface bg-linear-to-br from-primary-50/50 to-surface dark:from-primary-950/15;
 }
 
-/* Reveal Transitions (AOS Style) */
-[data-reveal] {
-	opacity: 0;
-	transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-	transition-delay: var(--reveal-delay, 0s);
-}
-
-[data-reveal='fade-up'] {
-	transform: translateY(20px);
-}
-
-[data-reveal='fade-down'] {
-	transform: translateY(-20px);
-}
-
-[data-reveal='fade-left'] {
-	transform: translateX(20px);
-}
-
-[data-reveal='fade-right'] {
-	transform: translateX(-20px);
-}
-
-[data-reveal='scale'] {
-	transform: scale(0.9);
-}
-
-.reveal-visible {
-	opacity: 1 !important;
-	transform: translate(0) scale(1) !important;
-}
-
 @utility prose-primary {
-  --tw-prose-body: var(--color-primary-800);
-  --tw-prose-headings: var(--color-primary);
-  --tw-prose-lead: var(--color-primary-700);
-  --tw-prose-links: var(--color-primary);
-  --tw-prose-bold: var(--color-foreground);
-  --tw-prose-counters: var(--color-primary-600);
-  --tw-prose-bullets: var(--color-foreground);
-  --tw-prose-hr: var(--color-faded);
-  --tw-prose-quotes: var(--color-faded);
-  --tw-prose-quote-borders: var(--color-faded);
-  --tw-prose-captions: var(--color-faded);
-  --tw-prose-code: var(--color-primary-900);
-  --tw-prose-pre-code: var(--color-primary-100);
-  --tw-prose-pre-bg: var(--color-primary-900);
-  --tw-prose-th-borders: var(--color-primary-300);
-  --tw-prose-td-borders: var(--color-primary-200);
-  --tw-prose-invert-body: var(--color-primary-200);
-  --tw-prose-invert-headings: var(--color-white);
-  --tw-prose-invert-lead: var(--color-primary-300);
-  --tw-prose-invert-links: var(--color-white);
-  --tw-prose-invert-bold: var(--color-white);
-  --tw-prose-invert-counters: var(--color-primary-400);
-  --tw-prose-invert-bullets: var(--color-primary-600);
-  --tw-prose-invert-hr: var(--color-primary-700);
-  --tw-prose-invert-quotes: var(--color-primary-100);
-  --tw-prose-invert-quote-borders: var(--color-primary-700);
-  --tw-prose-invert-captions: var(--color-primary-400);
-  --tw-prose-invert-code: var(--color-white);
-  --tw-prose-invert-pre-code: var(--color-primary-300);
-  --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
-  --tw-prose-invert-th-borders: var(--color-primary-600);
-  --tw-prose-invert-td-borders: var(--color-primary-700);
+	--tw-prose-body: var(--color-foreground);
+	--tw-prose-headings: var(--color-primary);
+	--tw-prose-lead: var(--color-primary-700);
+	--tw-prose-links: var(--color-primary);
+	--tw-prose-bold: var(--color-foreground);
+	--tw-prose-counters: var(--color-primary-600);
+	--tw-prose-bullets: var(--color-foreground);
+	--tw-prose-hr: var(--color-faded);
+	--tw-prose-quotes: var(--color-faded);
+	--tw-prose-quote-borders: var(--color-faded);
+	--tw-prose-captions: var(--color-faded);
+	--tw-prose-code: var(--color-primary-900);
+	--tw-prose-pre-code: var(--color-primary-100);
+	--tw-prose-pre-bg: var(--color-primary-900);
+	--tw-prose-th-borders: var(--color-primary-300);
+	--tw-prose-td-borders: var(--color-primary-200);
+	--tw-prose-invert-body: var(--color-primary-200);
+	--tw-prose-invert-headings: var(--color-white);
+	--tw-prose-invert-lead: var(--color-primary-300);
+	--tw-prose-invert-links: var(--color-white);
+	--tw-prose-invert-bold: var(--color-white);
+	--tw-prose-invert-counters: var(--color-primary-400);
+	--tw-prose-invert-bullets: var(--color-primary-600);
+	--tw-prose-invert-hr: var(--color-primary-700);
+	--tw-prose-invert-quotes: var(--color-primary-100);
+	--tw-prose-invert-quote-borders: var(--color-primary-700);
+	--tw-prose-invert-captions: var(--color-primary-400);
+	--tw-prose-invert-code: var(--color-white);
+	--tw-prose-invert-pre-code: var(--color-primary-300);
+	--tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
+	--tw-prose-invert-th-borders: var(--color-primary-600);
+	--tw-prose-invert-td-borders: var(--color-primary-700);
 }

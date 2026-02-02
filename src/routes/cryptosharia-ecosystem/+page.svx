@@ -1,4 +1,4 @@
-<div class="prose prose-primary text-foreground! max-w-4xl mx-auto fl-px-3/6 py-12 [&_img]:w-full">
+<article>
 
 # Ekosistem CryptoSharia
 
@@ -50,7 +50,7 @@ Artinya:
 
 Dengan sistem akun terpusat ini:
 
-- *user experience* menjadi lebih rapi,
+- _user experience_ menjadi lebih rapi,
 - tidak ada akun ganda,
 - dan CryptoSharia tampil sebagai satu entitas yang utuh, bukan kumpulan platform terpisah yang saling berdiri sendiri.
 
@@ -64,7 +64,7 @@ CryptoSharia Profile adalah **halaman resmi perusahaan** yang merepresentasikan 
 
 Fungsinya meliputi:
 
-- informasi *About Us* (tentang perusahaan),
+- informasi _About Us_ (tentang perusahaan),
 - visi & misi,
 - prinsip (core values) yang dipegang perusahaan,
 - daftar kontributor yang terlibat,
@@ -110,7 +110,7 @@ Community memiliki dua bentuk:
 - versi gratis,
 - versi berbayar dengan akses dan fasilitas yang lebih dalam.
 
-Platform seperti WhatsApp atau Discord hanya berperan sebagai **alat komunikasi**, bukan inti dari produk *CryptoSharia Community* itu sendiri.
+Platform seperti WhatsApp atau Discord hanya berperan sebagai **alat komunikasi**, bukan inti dari produk _CryptoSharia Community_ itu sendiri.
 
 ---
 
@@ -146,8 +146,8 @@ dikonsolidasikan dalam satu platform yang terpusat.
 
 CryptoSharia Store berperan sebagai **pusat transaksi dan pengelolaan akses** untuk seluruh ekosistem CryptoSharia, seperti:
 
-- berlangganan *CryptoSharia Community* (versi berbayar),
-- pembelian dan langganan modul *CryptoSharia Academy*,
+- berlangganan _CryptoSharia Community_ (versi berbayar),
+- pembelian dan langganan modul _CryptoSharia Academy_,
 - pembelian e-book, merchandise, dan produk resmi lainnya.
 
 ---
@@ -162,18 +162,18 @@ Perannya adalah:
 
 - menyimpan dan mengelola seluruh data ekosistem CryptoSharia secara terpusat,
 - memastikan aturan dan akses sama di semua platform,
-- menjadi penghubung antara *Accounts*, *Profile*, *Media*, *Community*, *Academy*, *Store*, dan *Admin*.
+- menjadi penghubung antara _Accounts_, _Profile_, _Media_, _Community_, _Academy_, _Store_, dan _Admin_.
 
-Dengan adanya *API*:
+Dengan adanya _API_:
 
 - setiap platform tidak berjalan sendiri-sendiri,
 - keputusan dan aturan bersifat konsisten,
 - dan perubahan di satu sisi dapat langsung berdampak secara terkontrol ke seluruh ekosistem.
 
-Bagi user, *CryptoSharia API* tidak terlihat, namun dampaknya terasa dalam bentuk:
+Bagi user, _CryptoSharia API_ tidak terlihat, namun dampaknya terasa dalam bentuk:
 
 - akses yang konsisten,
-- *user experience* yang rapi,
+- _user experience_ yang rapi,
 - serta sistem yang terasa profesional.
 
 ---
@@ -182,14 +182,14 @@ Bagi user, *CryptoSharia API* tidak terlihat, namun dampaknya terasa dalam bentu
 
 CryptoSharia Admin adalah **dashboard internal**, yang hanya digunakan oleh tim internal CryptoSharia.
 
-Melalui *CryptoSharia Admin*, tim dapat:
+Melalui _CryptoSharia Admin_, tim dapat:
 
 - mengelola konten,
 - mengatur produk dan layanan,
 - mengelola akses pengguna,
 - serta memastikan operasional berjalan sesuai arah yang ditetapkan.
 
-*CryptoSharia Admin* berfungsi sebagai **pusat kontrol ekosistem**, sehingga:
+_CryptoSharia Admin_ berfungsi sebagai **pusat kontrol ekosistem**, sehingga:
 
 - pengelolaan ekosistem terpusat di satu platform,
 - tanggung jawab lebih jelas,
@@ -208,7 +208,7 @@ Dengan desain ekosistem seperti ini:
 Pendekatan ini membedakan:
 
 - **perusahaan yang dibangun secara serius dan profesional**,  
-  dari  
+  dari
 - **komunitas yang berjalan seadanya dan reaktif**.
 
 ---
@@ -223,4 +223,4 @@ Ekosistem CryptoSharia dirancang untuk:
 
 Struktur ini bukan untuk terlihat “canggih”, melainkan untuk memastikan bahwa CryptoSharia dapat tumbuh secara rapi, bertanggung jawab, serta berkelanjutan sebagai sebuah perusahaan profesional dalam jangka panjang.
 
-</div>
+</article>
