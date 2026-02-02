@@ -140,10 +140,10 @@
   --tw-prose-bold: var(--color-foreground);
   --tw-prose-counters: var(--color-primary-600);
   --tw-prose-bullets: var(--color-foreground);
-  --tw-prose-hr: var(--color-primary-300);
+  --tw-prose-hr: var(--color-faded);
   --tw-prose-quotes: var(--color-faded);
-  --tw-prose-quote-borders: var(--color-primary-300);
-  --tw-prose-captions: var(--color-primary-700);
+  --tw-prose-quote-borders: var(--color-faded);
+  --tw-prose-captions: var(--color-faded);
   --tw-prose-code: var(--color-primary-900);
   --tw-prose-pre-code: var(--color-primary-100);
   --tw-prose-pre-bg: var(--color-primary-900);

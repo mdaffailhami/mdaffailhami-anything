@@ -7,7 +7,10 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<link rel="icon" href={favicon} />
+	<title>Daffa Ilhami | Anything</title>
+</svelte:head>
 
 <SvelteTheme enableSystem enableColorScheme defaultTheme="system" attribute="class">
 	{@render children()}
