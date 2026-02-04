@@ -22,7 +22,7 @@ Pendekatan ini dipilih agar CryptoSharia:
 
 Gambar berikut menggambarkan secara visual bagaimana seluruh platform CryptoSharia saling terhubung dalam satu ekosistem terintegrasi.
 
-![CryptoSharia Ecosystem](https://i.ibb.co.com/S7XnWX31/cryptosharia-ecosystem.png)
+![CryptoSharia Ecosystem](https://i.ibb.co.com/rGqpshyx/cryptosharia-ecosystem.png)
 
 > Catatan: Diagram ini bersifat konseptual untuk membantu pemahaman alur pengguna, peran tiap platform, dan pusat kendali sistem.
 
