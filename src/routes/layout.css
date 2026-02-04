@@ -115,12 +115,12 @@
 	--tw-prose-quotes: var(--color-faded);
 	--tw-prose-quote-borders: var(--color-faded);
 	--tw-prose-captions: var(--color-faded);
-	--tw-prose-code: var(--color-primary-900);
-	--tw-prose-pre-code: var(--color-primary-100);
-	--tw-prose-pre-bg: var(--color-primary-900);
+	--tw-prose-code: var(--color-primary);
+	--tw-prose-pre-code: var(--color-yellow-600);
+	--tw-prose-pre-bg: var(--color-surface);
 	--tw-prose-th-borders: var(--color-primary-300);
 	--tw-prose-td-borders: var(--color-primary-200);
-	--tw-prose-invert-body: var(--color-primary-200);
+	/* --tw-prose-invert-body: var(--color-primary-200);
 	--tw-prose-invert-headings: var(--color-white);
 	--tw-prose-invert-lead: var(--color-primary-300);
 	--tw-prose-invert-links: var(--color-white);
@@ -135,5 +135,5 @@
 	--tw-prose-invert-pre-code: var(--color-primary-300);
 	--tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
 	--tw-prose-invert-th-borders: var(--color-primary-600);
-	--tw-prose-invert-td-borders: var(--color-primary-700);
+	--tw-prose-invert-td-borders: var(--color-primary-700); */
 }
