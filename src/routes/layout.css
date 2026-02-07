@@ -118,8 +118,8 @@
 	--tw-prose-code: var(--color-primary);
 	--tw-prose-pre-code: var(--color-yellow-600);
 	--tw-prose-pre-bg: var(--color-surface);
-	--tw-prose-th-borders: var(--color-primary-300);
-	--tw-prose-td-borders: var(--color-primary-200);
+	--tw-prose-th-borders: var(--color-primary-200);
+	--tw-prose-td-borders: var(--color-faded);
 	/* --tw-prose-invert-body: var(--color-primary-200);
 	--tw-prose-invert-headings: var(--color-white);
 	--tw-prose-invert-lead: var(--color-primary-300);
